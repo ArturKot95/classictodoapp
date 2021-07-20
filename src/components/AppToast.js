@@ -7,8 +7,10 @@ export default function AppToast(props) {
   let toastMessage = useSelector(state => state.toast.message);
 
   useEffect(() => {
-    let toastInstance = Toast.getOrCreateInstance(toastRef.current);
-    toastInstance.show();
+    if (toastMessage.trim()) {
+      let toastInstance = Toast.getOrCreateInstance(toastRef.current);
+      toastInstance.show();
+    }
   }, [toastMessage]);
 
   return <div className="position-fixed bottom-0 text-white start-50 translate-middle-x p-3" style={{zIndex: 11}}>
