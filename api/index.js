@@ -19,9 +19,14 @@ todosApi.delete('/', (req, res) => {
 });
 
 todosApi.patch('/', (req, res) => {
-  let {_id, ...updatedTodo} = req.body;
-  req.db.collection('todos').updateOne({ _id: ObjectId(_id) }, { $set: { ...updatedTodo } })
-  .then((({upsertedId}) => res.json({_id: upsertedId, ...updatedTodo})));
+  let {_id, ...fieldsToUpdate} = req.body;
+  if (fieldsToUpdate) {
+    req.db.collection('todos').updateOne({ _id: ObjectId(_id) }, { $set: { ...fieldsToUpdate } })
+    .then((() => res.json({_id, ...fieldsToUpdate})));
+  } else {
+    res.json({_id});
+  }
+  
 });
 
 module.exports = {

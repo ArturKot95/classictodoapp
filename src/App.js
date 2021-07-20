@@ -1,17 +1,8 @@
 import TodoList from './components/TodoList';
 import Navbar from './components/Navbar';
 import AppToast from './components/AppToast';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { displayMessage } from './features/toastSlice';
 
 export default function App (props) {
-  let dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(displayMessage('Zadanie "Umów się do fryzjera" zostało usunięte.'));
-  }, [dispatch]);
-
   return <>
     <Navbar />
     <div className="row">
