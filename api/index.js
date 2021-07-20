@@ -4,7 +4,7 @@ const { ObjectId } = require('mongodb');
 let todosApi = express.Router();
 
 todosApi.get('/', (req, res) => {
-  req.db.collection('todos').find({}).toArray()
+  req.db.collection('todos').find({}).sort({createdDate: -1}).toArray()
   .then(records => res.json(records));
 });
 
