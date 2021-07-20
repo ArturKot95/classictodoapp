@@ -8,17 +8,11 @@ export default function TodoListItem(props) {
   let initialMount = useRef(true);
 
   function checkboxHandler(event, _id) {
-    dispatch(updateTodo({_id, completed: event.target.checked}));
-  }
-
-  useEffect(() => {
-    if (initialMount.current) {
-      initialMount.current = false;
-    }
-    else {
+    dispatch(() => {
+      dispatch(updateTodo({_id, completed: event.target.checked}));
       dispatch(addGlobalMessage(`Todo ${props.todo.name} has been ${props.todo.completed ? '' : 'un'}done.`))
-    }
-  }, [props.todo.completed, dispatch]);
+    });
+  }
 
   return <li className="list-group-item">
     <div className="d-flex">
