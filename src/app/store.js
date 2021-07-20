@@ -5,6 +5,6 @@ import toastReducer from '../features/toastSlice';
 export const store = configureStore({
   reducer: {
     todos: todosReducer,
-    toast: toastReducer
+    globalMessages: toastReducer
   }
 });

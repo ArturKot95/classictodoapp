@@ -1,15 +1,18 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, nanoid } from "@reduxjs/toolkit";
 
-let initialState = { message: '' };
+let initialState = [];
 let toastSlice = createSlice({
   name: 'toast',
   initialState,
   reducers: {
-    displayMessage(state, { payload }) {
-      state.message = payload;
+    addGlobalMessage(state, { payload }) {
+      state.push({id: nanoid(), text: payload});
+    },
+    removeGlobalMessageById(state, { payload }) {
+      return [...state.filter(toast => toast.id !== payload)];
     }
   }
 });
 
-export const { displayMessage } = toastSlice.actions;
+export const { addGlobalMessage, removeGlobalMessageById } = toastSlice.actions;
 export default toastSlice.reducer;

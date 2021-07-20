@@ -1,6 +1,6 @@
 import TodoList from './components/TodoList';
 import Navbar from './components/Navbar';
-import AppToast from './components/AppToast';
+import AppToastContainer from './components/AppToastContainer';
 
 export default function App (props) {
   return <>
@@ -10,6 +10,6 @@ export default function App (props) {
         <TodoList />
       </div>
     </div>
-    <AppToast />
+    <AppToastContainer />
   </>;
 }
