@@ -16,6 +16,12 @@ export default function TodoList(props) {
   ))
 
   return <ul className="list-group">
-    { todosItems }
+    {todosItems.length > 0 
+      ? todosItems 
+      : <>
+        <span className="display-2"> No todos yet. </span>
+        <a role="button" class="primary-link" data-bs-toggle="modal" data-bs-target="#newTodoModal">Create one.</a>
+      </>
+    }
   </ul>
 }
