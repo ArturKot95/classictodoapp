@@ -11,17 +11,26 @@ export default function TodoList(props) {
     dispatch(fetchTodos());
   }, [dispatch]);
 
-  let todosItems = todos.map(todo => (
+  let completedTodos = todos.filter(todo => todo.completed === true).map(todo => (
     <TodoListItem key={todo._id} todo={todo} />
-  ))
+  ));
+  let uncompletedTodos = todos.filter(todo => todo.completed === false).map(todo => (
+    <TodoListItem key={todo._id} todo={todo} />
+  ));
 
   return <ul className="list-group">
-    {todosItems.length > 0 
-      ? todosItems 
-      : <>
-        <span className="display-2"> No todos yet. </span>
-        <a role="button" class="primary-link" data-bs-toggle="modal" data-bs-target="#newTodoModal">Create one.</a>
-      </>
+    {todos.length > 0
+     ? <>
+      {uncompletedTodos}
+      {completedTodos.length > 0 && 
+      <>
+        <hr/>
+        <h4>Completed</h4>
+        {completedTodos}
+      </>}
+     </>
+     : <a role="button" className="primary-link" data-bs-toggle="modal" data-bs-target="#newTodoModal">Create one.</a>
+
     }
   </ul>
 }
