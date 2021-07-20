@@ -23,7 +23,7 @@ export default function TodoListItem(props) {
   return <li className="list-group-item">
     <div className="d-flex">
       <div className="h5 mb-0 me-auto">{ props.todo.name }</div>
-      <input type="checkbox" checked={ props.todo.completed }
+      <input type="checkbox" role="button" checked={ props.todo.completed }
              className="form-check-input" onChange={(e) => checkboxHandler(e, props.todo._id)} />
     </div>
   </li>

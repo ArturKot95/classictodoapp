@@ -17,6 +17,14 @@ let updateTodo = createAsyncThunk(
   }
 );
 
+let newTodo = createAsyncThunk(
+  'todos/new',
+  async (todo) => {
+    let response = await axios.post('/todos', todo);
+    return response.data;
+  }
+);
+
 let initialState = [];
 let todosSlice = createSlice({
   name: 'todos',
@@ -25,6 +33,7 @@ let todosSlice = createSlice({
     builder.addCase(fetchTodos.fulfilled, (state, { payload }) => {
       return payload;
     });
+
     builder.addCase(updateTodo.fulfilled, (state, { payload }) => {
       let stateCopy = [];
       for (let i in state) {
@@ -35,8 +44,12 @@ let todosSlice = createSlice({
       }
       return stateCopy;
     });
+
+    builder.addCase(newTodo.fulfilled, (state, { payload }) => {
+      state.push(payload);
+    })
   }
 });
 
-export { fetchTodos, updateTodo };
+export { fetchTodos, updateTodo, newTodo };
 export default todosSlice.reducer;

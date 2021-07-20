@@ -1,19 +1,31 @@
 import { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form"
 import { Modal } from 'bootstrap';
+import { newTodo } from "../../features/todosSlice";
+import { useDispatch } from "react-redux";
+import { addGlobalMessage } from "../../features/toastSlice";
+import $ from 'jquery'
 
 export default function NewTodoModal(props) {
   let { register, handleSubmit, reset, formState: { errors } } = useForm();
+  let dispatch = useDispatch();
   let modalRef = useRef();
 
   function onSubmit(data) {
-    console.log(data);
+    dispatch(() => {
+      dispatch(newTodo(data));
+      dispatch(addGlobalMessage(`Todo ${data.name} created.`));
+      Modal.getOrCreateInstance(modalRef.current).hide();
+    });
   }
 
   useEffect(() => {
     Modal.getOrCreateInstance(modalRef.current);
     modalRef.current.addEventListener('hidden.bs.modal', () => {
       reset();
+     
+      $('body').css('overflow', 'auto');
+      $('.modal-backdrop').remove();
     });
   }, [reset]);
 
