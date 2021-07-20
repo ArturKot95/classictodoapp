@@ -9,13 +9,13 @@ let fetchTodos = createAsyncThunk(
   }
 )
 
-let initialState = { todos: [] };
+let initialState = [];
 let todosSlice = createSlice({
   name: 'todos',
   initialState,
   extraReducers: (builder) => {
     builder.addCase(fetchTodos.fulfilled, (state, { payload }) => {
-      state.todos = payload;
+      return payload;
     });
   }
 });
