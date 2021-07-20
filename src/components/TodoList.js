@@ -12,7 +12,7 @@ export default function TodoList(props) {
   }, [dispatch]);
 
   let todosItems = todos.map(todo => (
-    <TodoListItem todo={todo} />
+    <TodoListItem key={todo._id} todo={todo} />
   ))
 
   return <ul className="list-group">
