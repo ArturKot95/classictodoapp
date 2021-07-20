@@ -9,6 +9,8 @@ todosApi.get('/', (req, res) => {
 });
 
 todosApi.post('/', (req, res) => {
+  if (!req.body.completed) req.body.completed = false;
+  
   req.db.collection('todos').insertOne(req.body)
   .then(({insertedId}) => res.json({...req.body, _id: insertedId}));
 });

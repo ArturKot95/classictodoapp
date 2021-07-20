@@ -1,6 +1,7 @@
 import TodoList from './components/TodoList';
 import Navbar from './components/Navbar';
 import AppToastContainer from './components/AppToastContainer';
+import NewTodoModal from './components/modals/NewTodo';
 
 export default function App (props) {
   return <>
@@ -11,5 +12,6 @@ export default function App (props) {
       </div>
     </div>
     <AppToastContainer />
+    <NewTodoModal id="newTodoModal" />
   </>;
 }
