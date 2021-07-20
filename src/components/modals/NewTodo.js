@@ -21,11 +21,15 @@ export default function NewTodoModal(props) {
 
   useEffect(() => {
     Modal.getOrCreateInstance(modalRef.current);
-    modalRef.current.addEventListener('hidden.bs.modal', () => {
+    modalRef.current.addEventListener('hidden.bs.modal', function() {
       reset();
      
       $('body').css('overflow', 'auto');
       $('.modal-backdrop').remove();
+    });
+    
+    modalRef.current.addEventListener('shown.bs.modal', function() {
+      $('input', this).get(0).focus();
     });
   }, [reset]);
 
