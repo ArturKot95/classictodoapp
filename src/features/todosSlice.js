@@ -11,9 +11,8 @@ let fetchTodos = createAsyncThunk(
 
 let updateTodo = createAsyncThunk(
   'todos/update',
-  async (todo) => {
-    let response = await axios.patch('/todos', todo);
-    console.log(response.data);
+  async ({_id, ...data}) => {
+    let response = await axios.patch('/todos', {_id, ...data});
     return response.data;
   }
 );
@@ -27,7 +26,7 @@ let todosSlice = createSlice({
       return payload;
     });
     builder.addCase(updateTodo.fulfilled, (state, { payload }) => {
-      let stateCopy = []
+      let stateCopy = [];
       for (let i in state) {
         if (state[i]._id === payload._id) {
           stateCopy.push({...state[i],...payload});
