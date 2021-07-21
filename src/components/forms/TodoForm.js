@@ -24,11 +24,37 @@ export default function TodoForm (props) {
 
   return <form id={props.id} onSubmit={handleSubmit(onSubmit)}>
     <div>
-      <label htmlFor={`${props.id}_name`}>Name</label>
-      <input id={`${props.id}_name`} type="text" 
-              className="form-control" placeholder="e.g. Laundry..."
-              {...register('name', {required: true})} />
-      {errors.name && <span className="form-text text-danger">Field name is required.</span> }
+      <div className="my-2">
+        <div className="form-check form-switch">
+          <input className="form-check-input" type="checkbox" id={`${props.id}_starred`}
+                 {...register('starred')}/>
+          <label className="form-check-label" htmlFor={`${props.id}_priority`}>Starred</label>
+        </div>
+      </div>
+
+      <div className="my-2">
+        <label htmlFor={`${props.id}_name`}>Name</label>
+        <input id={`${props.id}_name`} type="text" 
+                className="form-control" placeholder="e.g. Laundry..."
+                {...register('name', {required: true})} />
+        {errors.name && <span className="form-text text-danger">Field name is required.</span> }
+      </div>
+
+      <div className="my-2">
+        <label htmlFor={`${props.id}_description`}>Description</label>
+        <textarea className="form-control" id={`${props.id}_description`} placeholder="Description..."
+                  {...register('description')}></textarea>
+      </div>
+
+      <div className="my-2">
+        <label htmlFor={`${props.id}_priority`}>Priority</label>
+        <select className="form-select" {...register('priority', {required: true})}>
+          <option value="1">Low</option>
+          <option value="2">Medium</option>
+          <option value="3">High</option>
+        </select>
+      </div>
+
       {!props.noSubmitButton && <input className="btn btn-primary my-2" type="submit" value="Save" /> }
     </div>
   </form>
