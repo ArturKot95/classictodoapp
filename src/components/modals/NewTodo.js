@@ -4,6 +4,7 @@ import { Modal } from 'bootstrap';
 import { newTodo } from "../../features/todosSlice";
 import { useDispatch } from "react-redux";
 import { addGlobalMessage } from "../../features/toastSlice";
+import TodoForm from "../forms/TodoForm";
 import $ from 'jquery'
 
 export default function NewTodoModal(props) {
@@ -13,7 +14,7 @@ export default function NewTodoModal(props) {
 
   function onSubmit(data) {
     dispatch(() => {
-      dispatch(newTodo(data));
+      // dispatch(newTodo(data));
       dispatch(addGlobalMessage(`Todo ${data.name} created.`));
       Modal.getOrCreateInstance(modalRef.current).hide();
     });
@@ -38,15 +39,7 @@ export default function NewTodoModal(props) {
       <div className="modal-content">
         <div className="modal-header">New Todo</div>
         <div className="modal-body">
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div>
-              <label htmlFor={`${props.id}_name`}>Name</label>
-              <input id={`${props.id}_name`} type="text" 
-                      className="form-control" placeholder="e.g. Laundry..."
-                      {...register('name', {required: true})} />
-              {errors.name && <span className="form-text text-danger">Field name is required.</span> }
-            </div>
-          </form>
+          <TodoForm mode="new" callback={(data) => onSubmit(data)} />
         </div>
         <div className="modal-footer">
           <button className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
