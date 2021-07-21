@@ -8,14 +8,14 @@ import TodoForm from "../forms/TodoForm";
 import $ from 'jquery'
 
 export default function NewTodoModal(props) {
-  let { register, handleSubmit, reset, formState: { errors } } = useForm();
+  let { handleSubmit, reset} = useForm();
   let dispatch = useDispatch();
   let modalRef = useRef();
 
   function onSubmit(data) {
     dispatch(() => {
       // dispatch(newTodo(data));
-      dispatch(addGlobalMessage(`Todo ${data.name} created.`));
+      dispatch(addGlobalMessage(`Todo "${data.name}" created.`));
       Modal.getOrCreateInstance(modalRef.current).hide();
     });
   }
@@ -37,11 +37,11 @@ export default function NewTodoModal(props) {
       <div className="modal-content">
         <div className="modal-header">New Todo</div>
         <div className="modal-body">
-          <TodoForm noSubmitButton mode="new" onSubmit={(data) => onSubmit(data)} />
+          <TodoForm id="newTodoModalForm" noSubmitButton mode="new" onSubmit={(mode, data) => onSubmit(data)} />
         </div>
         <div className="modal-footer">
           <button className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button className="btn btn-primary" onClick={handleSubmit(onSubmit)}>Save</button>
+          <button form="newTodoModalForm" className="btn btn-primary">Save</button>
         </div>
       </div>
     </div>
