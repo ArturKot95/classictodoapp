@@ -25,6 +25,14 @@ let newTodo = createAsyncThunk(
   }
 );
 
+let removeTodo = createAsyncThunk(
+  'todos/remove',
+  async (_id) => {
+    await axios.delete('/todos', { data: { _id } })
+    return _id;
+  }
+)
+
 let initialState = [];
 let todosSlice = createSlice({
   name: 'todos',
@@ -47,9 +55,13 @@ let todosSlice = createSlice({
 
     builder.addCase(newTodo.fulfilled, (state, { payload }) => {
       state.push(payload);
-    })
+    });
+
+    builder.addCase(removeTodo.fulfilled, (state, { payload }) => {
+      return state.filter(todo => todo._id !== payload);
+    });
   }
 });
 
-export { fetchTodos, updateTodo, newTodo };
+export { fetchTodos, updateTodo, newTodo, removeTodo };
 export default todosSlice.reducer;
