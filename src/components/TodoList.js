@@ -28,19 +28,15 @@ export default function TodoList(props) {
   ));
 
   return <>
-    <div className="form-floating mb-1">
-      <input type="text" className="form-control" placeholder="Filter..." 
-             onChange={(e) => setFilterText(e.target.value)} />
-      <label htmlFor="todoFilterInput">Filter...</label>
-    </div>
+    <input type="text" className="form-control my-2" placeholder="Filter..." 
+            onChange={(e) => setFilterText(e.target.value)} />
     <ul className="list-group">
       {todos.length > 0
       ? <>
         {uncompletedTodos}
         {completedTodos.length > 0 && 
         <>
-          <hr/>
-          <h4>Completed</h4>
+          <h4 className="my-2">Completed</h4>
           {completedTodos}
         </>}
       </>
