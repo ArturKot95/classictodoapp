@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { newTodo, updateTodo } from "../../features/todosSlice";
 
 export default function TodoForm (props) {
-  let formValues = {} || {...props.todo};
+  let { _id, ...formValues } = props.todo || {};
 
   let { register, formState: {errors}, handleSubmit } = useForm({ defaultValues: formValues });
   let dispatch = useDispatch();
@@ -15,11 +15,10 @@ export default function TodoForm (props) {
       if (props.mode === 'new') {
         dispatch(newTodo(data));
       } else if (props.mode === 'edit') {
-        let todoId = props.todo._id;
-        dispatch(updateTodo(todoId, data));
+        dispatch(updateTodo({_id: props.todo._id, ...data}));
       }
 
-      props.callback(data);
+      if (typeof props.onSubmit === 'function') props.onSubmit(props.mode, data);
     }
   }
 
@@ -30,6 +29,7 @@ export default function TodoForm (props) {
               className="form-control" placeholder="e.g. Laundry..."
               {...register('name', {required: true})} />
       {errors.name && <span className="form-text text-danger">Field name is required.</span> }
+      {!props.noSubmitButton && <input className="btn btn-primary my-2" type="submit" value="Save" /> }
     </div>
   </form>
 }

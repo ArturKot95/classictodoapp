@@ -24,9 +24,7 @@ export default function NewTodoModal(props) {
     Modal.getOrCreateInstance(modalRef.current);
     modalRef.current.addEventListener('hidden.bs.modal', function() {
       reset();
-     
-      $('body').css('overflow', 'auto');
-      $('.modal-backdrop').remove();
+      window.backdropFix();
     });
     
     modalRef.current.addEventListener('shown.bs.modal', function() {
@@ -39,7 +37,7 @@ export default function NewTodoModal(props) {
       <div className="modal-content">
         <div className="modal-header">New Todo</div>
         <div className="modal-body">
-          <TodoForm mode="new" callback={(data) => onSubmit(data)} />
+          <TodoForm noSubmitButton mode="new" onSubmit={(data) => onSubmit(data)} />
         </div>
         <div className="modal-footer">
           <button className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
