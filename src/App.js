@@ -6,8 +6,10 @@ import NewTodoModal from './components/modals/NewTodo';
 export default function App (props) {
   return <>
     <Navbar />
-    <div className="row">
-      <div className="col-12 col-md-8 col-lg-6 mx-auto pt-5">
+    <div className="row p-3">
+      <div className="col-12 col-md-4">
+      </div>
+      <div className="col-12 col-md-8 mx-auto">
         <TodoList />
       </div>
     </div>
